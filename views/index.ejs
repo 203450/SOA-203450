@@ -46,26 +46,27 @@
         <table class="table table-bordered table-striped text-center mt-4">
             <thead>
                 <tr class="bg-primary text-white">
-                    <th scope="col">ID</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Existencia</th>
-                    <th scope="col">TipoId</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col">id</th>
+                    <th scope="col">titulo</th>
+                    <th scope="col">descripcion</th>
+                    <th scope="col">fecha_creacion</th>
+                    <th scope="col">fecha_modificacion</th>
+                    <th scope="col">fecha_eliminacion</th>
                 </tr>
             </thead>
             <tbody>
-                <% results.forEach((productos)=>{ %>
+                <% results.forEach((tareas)=>{ %>
 
                 <tr>
-                    <td><%= productos.productoId %></td>
-                    <td><%= productos.nombre %></td>
-                    <td><%= productos.precio %></td>
-                    <td><%= productos.existencia %></td>
-                    <td><%= productos.tipoId %></td>
+                    <td><%= tareas.id %></td>
+                    <td><%= tareas.titulo %></td>
+                    <td><%= tareas.descripcion %></td>
+                    <td><%= tareas.fecha_creacion %></td>
+                    <td><%= tareas.fecha_modificacion %></td>
+                    <td><%= tareas.fecha_eliminacion %></td>
                     <td>
-                        <a href="/edit/<%= productos.productoId %>" class="btn btn-outline-info">Editar</a>
-                        <a href="/delete/<%= productos.productoId %>" class="btn btn-outline-danger">Borrar</a>
+                        <a href="/update/<%= tareas.id %>" class="btn btn-outline-info">Modificar</a>
+                        <a href="/delete/<%= tareas.id %>" class="btn btn-outline-danger">Eliminar</a>
                     </td>
                 </tr>
             <% }) %>

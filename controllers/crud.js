@@ -28,6 +28,7 @@ const getTareaPorId = async (req, res) => {
 const createTarea = async (req, res) => {
     const { titulo, descripcion } = req.body;
     const fechaCreacion = new Date().toISOString();
+    console.log(fechaCreacion);
   
     const query = 'INSERT INTO tareas (titulo, descripcion, fecha_creacion) VALUES ($1, $2, $3) RETURNING *';
     const values = [titulo, descripcion, fechaCreacion];
@@ -60,9 +61,29 @@ const createTarea = async (req, res) => {
     }
   };
 
+  const updateFechaEliminacion = async (req, res) => {
+    const taskId = req.params.id;
+    const fechaEliminacion = new Date().toISOString();
+    
+    const query = 'UPDATE tareas SET fecha_eliminacion = $1 WHERE id = $2 RETURNING *';
+    const values = [fechaEliminacion, taskId];
+  
+    try {
+      const tareaEliminada = await pool.query(query, values);
+      if (tareaEliminada.rows.length === 0) {
+        return res.status(404).json({ error: 'Tarea no encontrada' });
+      }
+      res.json(tareaEliminada.rows[0]);
+    } catch (error) {
+      console.error('Error al eliminar tarea:', error);
+      res.status(500).json({ error: 'Error al eliminar tarea' });
+    }
+};
+
 module.exports = {
   getTareas,
   createTarea,
   getTareaPorId,
-  updateFechaModificacion
+  updateFechaModificacion,
+  updateFechaEliminacion
 };
